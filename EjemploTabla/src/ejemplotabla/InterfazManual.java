@@ -5,7 +5,12 @@
  */
 package ejemplotabla;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -36,6 +41,7 @@ Estudiante est = new Estudiante();
 
     public InterfazManual() {
         initComponents();
+        condicionesIniciales();
     }
    
     
@@ -67,14 +73,16 @@ Estudiante est = new Estudiante();
         btnIngresarNota = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
+        btnGenerarPromedio = new javax.swing.JButton();
         btnMortalidad = new javax.swing.JButton();
         comboBox1 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnHistorico = new javax.swing.JButton();
         panelGrafico = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,10 +145,10 @@ Estudiante est = new Estudiante();
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        jButton3.setText("Generar Tabla de Promedios");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerarPromedio.setText("Generar Tabla de Promedios");
+        btnGenerarPromedio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnGenerarPromedioActionPerformed(evt);
             }
         });
 
@@ -161,10 +169,10 @@ Estudiante est = new Estudiante();
 
         jLabel6.setText("Seleccione el nombre del Estudiante:");
 
-        jButton2.setText("Mostrar Histórico");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnHistorico.setText("Mostrar Histórico");
+        btnHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnHistoricoActionPerformed(evt);
             }
         });
 
@@ -181,6 +189,20 @@ Estudiante est = new Estudiante();
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel7.setText("HISTORICO DE NOTAS");
+
+        jButton4.setText("Volver al Menú Principal");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        btnExportar.setText("Exportar CSV");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,34 +227,36 @@ Estudiante est = new Estudiante();
                         .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblNumeroNota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNota, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                                    .addComponent(txtNombreEstudiante))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblNumeroNota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtNombreEstudiante, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                        .addComponent(txtNota)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnIngresarNombre)
                                     .addComponent(btnIngresarNota))
-                                .addGap(265, 265, 265))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3))
+                                .addComponent(btnGenerarPromedio))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(68, 68, 68)
-                                .addComponent(btnMortalidad)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnExportar)
+                                    .addComponent(btnMortalidad))))
+                        .addGap(18, 49, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +265,7 @@ Estudiante est = new Estudiante();
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(comboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButton2)))
+                                        .addComponent(btnHistorico)))
                                 .addGap(104, 104, 104))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,6 +274,9 @@ Estudiante est = new Estudiante();
                 .addGap(485, 485, 485)
                 .addComponent(jLabel7)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,40 +304,47 @@ Estudiante est = new Estudiante();
                             .addComponent(jLabel3)
                             .addComponent(lblNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNombreEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnIngresarNombre))
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(lblNumeroNota))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnIngresarNota))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtNombreEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(17, 17, 17)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(lblNumeroNota))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnIngresarNombre)
+                                .addGap(36, 36, 36)
+                                .addComponent(btnIngresarNota)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(76, 76, 76)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(jLabel5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(70, 70, 70)
-                                .addComponent(jButton3)
+                                .addComponent(btnGenerarPromedio)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnMortalidad))
+                                .addComponent(btnMortalidad)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExportar)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel6)
                                 .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(comboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2))
+                                    .addComponent(btnHistorico))
                                 .addGap(18, 18, 18)
-                                .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(92, Short.MAX_VALUE))
+                                .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton4))))))
         );
 
         pack();
@@ -334,13 +368,23 @@ Estudiante est = new Estudiante();
            tabCM.setHeaderValue("Nota "+i); 
         jTable1.repaint();
         }
-        
-        
+        jLabel3.setVisible(true);
+        jLabel4.setVisible(true);
+        lblNumero.setVisible(true);
+        lblNumeroNota.setVisible(true);
+        txtNombreEstudiante.setVisible(true);
+        txtNota.setVisible(true);
+        jTable1.setVisible(true);
+        btnIngresarNombre.setVisible(true);
+        btnIngresarNota.setVisible(true);
+        btnIngresarNota.setEnabled(false);
+        jButton1.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnIngresarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarNombreActionPerformed
         // TODO add your handling code here:
-        
+        btnIngresarNota.setEnabled(true);
+        btnIngresarNombre.setEnabled(false);
        jTable1.setValueAt(txtNombreEstudiante.getText() , fila, 0);
        estudiantes.add(new Estudiante(txtNombreEstudiante.getText()));
        comboBox1.addItem(txtNombreEstudiante.getText());
@@ -348,6 +392,9 @@ Estudiante est = new Estudiante();
 
     private void btnIngresarNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarNotaActionPerformed
         // TODO add your handling code here:
+        if(Float.parseFloat(txtNota.getText())>5 || Float.parseFloat(txtNota.getText())<0){
+            JOptionPane.showMessageDialog(null, "NOTA NO VALIDA");
+        }else{
         float nota = Float.parseFloat(txtNota.getText());
         estudiantes.get(Integer.parseInt(lblNumero.getText())-1).notas.add(nota);
         
@@ -357,15 +404,28 @@ Estudiante est = new Estudiante();
         
         if(Integer.parseInt(lblNumeroNota.getText())==NumeroNotas+1){
         fila++;
+        if(fila==Filas){
+            btnIngresarNota.setEnabled(false);
+            btnIngresarNombre.setEnabled(false);
+            btnGenerarPromedio.setVisible(true);
+            comboBox1.setVisible(true);
+            jLabel5.setVisible(true);
+            jLabel6.setVisible(true);
+            btnHistorico.setVisible(true);
+            btnExportar.setVisible(true);
+        }
         lblNumeroNota.setText(String.valueOf(1));
         lblNumero.setText(String.valueOf(Integer.parseInt(lblNumero.getText())+1));
-         
+         btnIngresarNota.setEnabled(false);
+         btnIngresarNombre.setEnabled(true);
         }
-        
+        }
     }//GEN-LAST:event_btnIngresarNotaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnGenerarPromedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarPromedioActionPerformed
         // TODO add your handling code here:
+        jTable2.setVisible(true);
+        btnMortalidad.setVisible(true);
         for(int index=0;index<estudiantes.size();index++){
             estudiantes.get(index).calculoPromedio();
             estudiantes.get(index).calculoEstado();
@@ -395,7 +455,7 @@ Estudiante est = new Estudiante();
         }
         }
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnGenerarPromedioActionPerformed
 
     private void btnMortalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMortalidadActionPerformed
         // TODO add your handling code here:
@@ -414,7 +474,7 @@ Estudiante est = new Estudiante();
         
     }//GEN-LAST:event_comboBox1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoActionPerformed
         // TODO add your handling code here:
         XYSeries serie = new XYSeries("Notas");
         int valor = comboBox1.getSelectedIndex();
@@ -429,12 +489,69 @@ Estudiante est = new Estudiante();
         panelGrafico.setLayout(new java.awt.BorderLayout());
         panelGrafico.add(panel);
         panelGrafico.validate();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnHistoricoActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        InterfazPrincipal interfaz = new InterfazPrincipal();
+        interfaz.setVisible(true);
+        InterfazManual inter = new InterfazManual();
+        inter.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar como...");
+        int userSelection = fileChooser.showSaveDialog(this);
+        if(userSelection == JFileChooser.APPROVE_OPTION){
+            File fileToSave = fileChooser.getSelectedFile();
+            //lets write to file
+         
+            try {
+                  FileWriter fw = new FileWriter(fileToSave);
+                BufferedWriter bw = new BufferedWriter(fw);
+                for (int i = 0; i< jTable1.getRowCount(); i++) {
+                    for (int j = 0; j < jTable1.getColumnCount(); j++) {
+                        //write
+                        bw.write(jTable1.getValueAt(i, j).toString()+";");
+                    }
+                    bw.newLine();//record per line 
+                }
+                JOptionPane.showMessageDialog(this, "EXPORTADO CON EXITO","INFORMATION",JOptionPane.INFORMATION_MESSAGE);
+                bw.close();
+                fw.close();
+            } catch (IOException ex) {
+               JOptionPane.showMessageDialog(this, "ERROR","ERROR MESSAGE",JOptionPane.ERROR_MESSAGE);
+            }
+            
+            
+        }
+    }//GEN-LAST:event_btnExportarActionPerformed
 
     public void setEstudiantes(ArrayList<Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
     }
-
+    public void condicionesIniciales(){
+        jTable1.setVisible(false);
+        jTable2.setVisible(false);
+        jLabel3.setVisible(false);
+        jLabel4.setVisible(false);
+        lblNumero.setVisible(false);
+        lblNumeroNota.setVisible(false);
+        txtNombreEstudiante.setVisible(false);
+        txtNota.setVisible(false);
+        btnIngresarNombre.setVisible(false);
+        btnIngresarNota.setVisible(false);
+        btnGenerarPromedio.setVisible(false);
+        btnMortalidad.setVisible(false);
+        jLabel5.setVisible(false);
+        jLabel6.setVisible(false);
+        btnHistorico.setVisible(false);
+        comboBox1.setVisible(false);
+        btnExportar.setVisible(false);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -474,13 +591,15 @@ Estudiante est = new Estudiante();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExportar;
+    private javax.swing.JButton btnGenerarPromedio;
+    private javax.swing.JButton btnHistorico;
     private javax.swing.JButton btnIngresarNombre;
     private javax.swing.JButton btnIngresarNota;
     private javax.swing.JButton btnMortalidad;
     private javax.swing.JComboBox<String> comboBox1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
