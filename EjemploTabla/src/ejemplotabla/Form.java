@@ -18,6 +18,7 @@ import javax.swing.table.TableColumnModel;
 public class Form extends javax.swing.JFrame {
 int Filas;
 int Columnas;
+int NumeroNotas;
    int fila=0;
     /**
      * Creates new form Form
@@ -56,6 +57,7 @@ Estudiante est = new Estudiante();
         jLabel4 = new javax.swing.JLabel();
         lblNumeroNota = new javax.swing.JLabel();
         btnIngresarNota = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,6 +107,13 @@ Estudiante est = new Estudiante();
             }
         });
 
+        jButton2.setText("Notas Primera Persona");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,29 +133,35 @@ Estudiante est = new Estudiante();
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNota)
-                            .addComponent(txtNombreEstudiante))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnIngresarNombre)
-                            .addComponent(btnIngresarNota))
-                        .addGap(50, 50, 50))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel4)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNota)
+                                    .addComponent(txtNombreEstudiante))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblNumeroNota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnIngresarNombre)
+                                    .addComponent(btnIngresarNota))
+                                .addGap(50, 50, 50))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(82, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblNumeroNota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(33, 33, 33))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +198,9 @@ Estudiante est = new Estudiante();
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnIngresarNota))))
+                            .addComponent(btnIngresarNota))
+                        .addGap(108, 108, 108)
+                        .addComponent(jButton2)))
                 .addGap(36, 36, 36))
         );
 
@@ -196,26 +213,16 @@ Estudiante est = new Estudiante();
         int columnas = Integer.parseInt(txtNumeronotas.getText())+1;
         this.Filas=filas;
         this.Columnas=columnas+1;
-        ArrayList<String> nombreColumnas = new ArrayList<String>();
-        for(int i=0;i<=columnas;i++){
-            if(i==0)
-                nombreColumnas.add("Nombre");
-            else
-                nombreColumnas.add("Nota "+i);
-        }
-        String valor = "Nombre";
-       
+        this.NumeroNotas=columnas-1;
         jTable1.setModel(new DefaultTableModel(filas,columnas));  
-        
         JTableHeader head = jTable1.getTableHeader();
         TableColumnModel tcm = head.getColumnModel();
-        
         for(int i=0;i<columnas;i++){
         TableColumn tabCM = tcm.getColumn(i);
         if(i==0)
         tabCM.setHeaderValue("Nombre");
         else
-           tabCM.setHeaderValue("Nota"+i); 
+           tabCM.setHeaderValue("Nota "+i); 
         jTable1.repaint();
         }
         
@@ -225,20 +232,37 @@ Estudiante est = new Estudiante();
     private void btnIngresarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarNombreActionPerformed
         // TODO add your handling code here:
         
-       jTable1.setValueAt(txtNombreEstudiante.getText() , Integer.parseInt(lblNumero.getText())-1, 0);
+       jTable1.setValueAt(txtNombreEstudiante.getText() , fila, 0);
        estudiantes.add(new Estudiante(txtNombreEstudiante.getText()));
        
     }//GEN-LAST:event_btnIngresarNombreActionPerformed
 
     private void btnIngresarNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarNotaActionPerformed
         // TODO add your handling code here:
-        int Numeronota = Integer.parseInt(lblNumeroNota.getText());
         float nota = Float.parseFloat(txtNota.getText());
-        est.notas.add(nota);
-        lblNumeroNota.setText(String.valueOf(Numeronota++));
+        estudiantes.get(Integer.parseInt(lblNumero.getText())-1).notas.add(nota);
+        
         jTable1.setValueAt(txtNota.getText(), fila,Integer.parseInt(lblNumeroNota.getText()));
-        lblNumeroNota.setText(String.valueOf(Integer.parseInt(lblNumeroNota.getText()))+1);
+        
+        lblNumeroNota.setText(String.valueOf(Integer.parseInt(lblNumeroNota.getText())+1));
+        
+        if(Integer.parseInt(lblNumeroNota.getText())==NumeroNotas+1){
+        estudiantes.get(fila).calculoPromedio();
+            fila++;
+        lblNumeroNota.setText(String.valueOf(1));
+        lblNumero.setText(String.valueOf(Integer.parseInt(lblNumero.getText())+1));
+         
+        }
+        
     }//GEN-LAST:event_btnIngresarNotaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+  for(int i=0;i<NumeroNotas;i++){
+      System.out.println(estudiantes.get(1).notas.get(i));
+  }
+
+        System.out.println(estudiantes.get(2).promedio);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void setEstudiantes(ArrayList<Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
@@ -283,6 +307,7 @@ Estudiante est = new Estudiante();
     private javax.swing.JButton btnIngresarNombre;
     private javax.swing.JButton btnIngresarNota;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
