@@ -11,31 +11,29 @@ import java.util.ArrayList;
  *
  * @author andresbaezrincon
  */
-public class Estudiante {
-    
-    Estudiante(){}
-    String nombre;
-    ArrayList <Float> notas;
-    Float promedio;
+public class EstudianteCSV {
+    String Nombre;
+    ArrayList<Float> listadoNotas;
     String Estado;
-    Estudiante(String Nombre){
-        this.nombre = Nombre;
-        this.notas = new ArrayList<Float>();
+    Float promedio;
+    EstudianteCSV(String nombre){
+        this.Nombre = nombre;
+        this.listadoNotas = new ArrayList<Float>();
+        this.Estado = null;
         this.promedio = (float)0;
-        this.Estado=null;
     }
     public String getNombre() {
-        return nombre;
+        return Nombre;
     }
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.Nombre = nombre;
     }
     public void calculoPromedio(){
         int acumulador = 0;
-        for(int i=0;i<notas.size();i++){
-            acumulador+=notas.get(i);
+        for(int i=0;i<listadoNotas.size();i++){
+            acumulador+=listadoNotas.get(i);
         }
-        promedio = (float)acumulador/(float)notas.size();
+        promedio = (float)acumulador/(float)listadoNotas.size();
     }
     public void calculoEstado(){
         if (promedio>=3)
@@ -43,7 +41,5 @@ public class Estudiante {
         else
             Estado = "Reprobado";
     }
-    
-    
     
 }

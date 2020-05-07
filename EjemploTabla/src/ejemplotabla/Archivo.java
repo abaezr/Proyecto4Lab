@@ -5,13 +5,17 @@
  */
 package ejemplotabla;
 
+import javax.swing.JFileChooser;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author andresbaezrincon
  */
-public class EjemploTabla {
+public class Archivo {
 
     /**
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
